@@ -1,3 +1,4 @@
 node_modules
 .idea
 /app/config/env.json
+package-lock.json

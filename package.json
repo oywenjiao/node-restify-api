@@ -1,5 +1,5 @@
 {
-  "name": "node-api",
+  "name": "node-restify-api",
   "version": "1.0.0",
   "private": true,
   "description": "使用nodejs的restify模块开发api应用",
