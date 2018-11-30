@@ -1,5 +1,5 @@
 # node-restify-api
-Restful API based on Restify module
+Restful API based on Restify module.
 
 ## Installation tutorial
 
