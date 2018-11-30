@@ -1,6 +1,6 @@
 "use strict";
 const restify = require('restify');
-const config = require('./app/config/env.json');
+const config = require(process.cwd()+'/app/config/env.json');
 const jwt = require(process.cwd()+'/app/tool/token');
 
 
@@ -19,7 +19,7 @@ server.get('/route', function (req, res) {
     return res.send(201, {
         "code": 404,
         "sub_code": "warn.required-parameter:url",
-        "msg": "请使用POST方式提交数据!"
+        "msg": "请使用POST方式提交数据!!!"
     });
 });
 
@@ -36,8 +36,14 @@ server.post('/route', function (req, res, next) {
             "sub_code": "warn.required-parameter:token",
             "msg": "token参数无效!"
         });
-    console.log(req.params);
-    console.log('1111',jwt.verifyToken(token));
+    // console.log(req.params);
+    let verify_token = jwt.verifyToken(token);
+    if(verify_token.state != 0)
+        return res.send(201, {
+            "code": 404,
+            "sub_code": "warn.required-parameter:token",
+            "msg": verify_token.msg
+        });
     return res.send({'msg':'test', 'data': 'success', 'token': jwt.verifyToken(token)});
 });
 

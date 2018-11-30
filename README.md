@@ -8,3 +8,6 @@ run <code>npm install</code> command.
 
 ### 2.Relevant Configuration Item Files
 copy <code>app->config</code> Directory <code>env.example</code> by <code>env.json</code>
+
+### 3.MySQL connection profile
+copy <code>app->database</code> Directory <code>db.xxx.js</code>

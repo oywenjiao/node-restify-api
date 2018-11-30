@@ -17,9 +17,18 @@ http://restify.com/docs/home/
 https://itbilu.com/nodejs/npm/VJHw6ScNb.html#api-promise.using
 http://bluebirdjs.com/docs/why-bluebird.html
 
-## 三、JWT用户认证
+## 三、JWT 用户认证
 
 ### 1.安装
 运行命令：<code>npm install jsonwebtoken</code>
 
 ### 2.说明文档
+https://www.npmjs.com/package/jsonwebtoken
+
+## 四、Promise-mysql 数据库操作模块
+
+### 1.安装
+运行命令：<code>npm install promise-mysql</code>
+
+### 2.说明文档
+https://www.npmjs.com/package/promise-mysql

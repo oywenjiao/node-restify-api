@@ -2,3 +2,5 @@ node_modules
 .idea
 /app/config/env.json
 package-lock.json
+/app/database/db.*
+!/app/database/db.example.js
