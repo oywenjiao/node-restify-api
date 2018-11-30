@@ -1,0 +1,19 @@
+{
+  "name": "node-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "使用nodejs的restify模块开发api应用",
+  "main": "./app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.5.3",
+    "jsonwebtoken": "^8.4.0",
+    "restify": "^7.2.3"
+  }
+}
