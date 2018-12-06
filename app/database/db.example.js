@@ -1,5 +1,5 @@
 const mysql = require('promise-mysql');
-const config = require('../config/db.example');
+const config = require('../config/env.json');
 
 /**
  * 创建mysql连接池
