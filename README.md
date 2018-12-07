@@ -1,6 +1,8 @@
 # node-restify-api
 Restful API based on Restify module.
 
+Interface Call Concept: Single Entry.
+
 ## Installation tutorial
 
 ### 1.Related plug-in installation
