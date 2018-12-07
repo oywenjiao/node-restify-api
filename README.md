@@ -18,11 +18,11 @@ copy <code>app->database</code> Directory <code>db.xxx.js</code>
 ### 1.directory structure
 
 ### <code>app:</code> Project core
-#### <code>config:</code> project configuration
-#### <code>database:</code> database configuration
-#### <code>module:</code> custom module
-#### <code>tool:</code> tool library
-#### <code>version:</code> Interface file version iteration
+- #### <code>config:</code> project configuration
+- #### <code>database:</code> database configuration
+- #### <code>module:</code> custom module
+- #### <code>tool:</code> tool library
+- #### <code>version:</code> Interface file version iteration
 
 ### 1-1.<code>version</code> Iterative sample specification:
 - Create the first version <code>v1</code> directory.
