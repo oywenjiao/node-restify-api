@@ -22,7 +22,8 @@ Model.prototype = {
     insert,
     getQuery,
     select,
-    restOption
+    restOption,
+    find,
 };
 
 /**
@@ -31,6 +32,7 @@ Model.prototype = {
  * @param connection    数据连接池
  * @param data  数据对象
  * @returns {Bluebird<any> | * | Bluebird<R | never> | PromiseLike<T | never> | Promise<T | never>}
+ * 返回值为Promise
  */
 function insert(tab, connection, data) {
     let sql = this.getQuery(tab, 'add');
@@ -96,6 +98,12 @@ function limit(firstRow, row=null) {
     return this;
 }
 
+/**
+ * 根据type类型获取SQL语句
+ * @param tab   数据表名称
+ * @param type  操作类型
+ * @returns {string}
+ */
 function getQuery(tab, type) {
     let query = '';
     switch (type) {
@@ -119,8 +127,10 @@ function getQuery(tab, type) {
 }
 
 /**
- * 执行SQL语句
- * @param tab
+ * 执行查询操作
+ * @param tab   数据表名称
+ * @param connection    数据库连接池
+ * @returns {*} 返回值为Promise
  */
 function select(tab, connection){
     if (this.field_options === null)
@@ -152,12 +162,41 @@ function select(tab, connection){
     })
 }
 
+/**
+ * 充值属性值
+ */
 function restOption(){
     this.firstRow = 0;   // 分页查询起始数据
     this.row = 1;    // 分页查询数据条目数
     this.field_options = null;  // 查询数据库字段
     this.where_options = null;   // where表达式
     this.value = [];  // where表达式字段值
+}
+
+/**
+ * 通过主键ID查询数据
+ * @param tab
+ * @param id
+ * @param connection
+ * @returns {*}
+ */
+function find(tab, id, connection){
+    if (parseFloat(id).toString() == "NaN")
+        return Helper.jsonError('id 参数无效!');
+    let field = '*';
+    let value = [];
+    if (this.field_options !== null) {
+        field = '??';
+        value.push(this.field_options);
+    }
+    let sql = 'select ' + field + ' from ' + tab + ' where id = ? limit 1';
+    value.push(id);
+    // 执行查询操作
+    return connection.query(sql, value).then(function (result) {
+        return result;
+    }).catch(function (err) {
+        return {'code': 401, 'msg': '查询错误', 'sub_code': err};
+    })
 }
 
 

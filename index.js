@@ -7,6 +7,7 @@ const Promise = require('bluebird');
 const config = require(process.cwd()+'/app/config/env.json');
 const jwt = require(process.cwd()+'/app/tool/token');
 const Helper = require(process.cwd()+'/app/tool/helper');
+const Files = require('fs');
 
 /**
  * 创建服务
@@ -85,7 +86,20 @@ server.post('/route', function (req, res, next) {
         return res.json(Helper.jsonError('缺少必要的公共参数!!', 401));
     return next();
 },function (req, res) {
-    return res.json(req.params);
+    // 根据v参数和method参数查找到对应的接口文件
+    let apiFile = './app/version/v'+req.params.v+'/'+req.params.method.replace('.','/').replace('.','/')+'.js';
+    // 检测指定的接口文件是否存在
+    Files.exists(apiFile, function (exists) {
+        if (exists === true){
+            let apiController = require(apiFile);
+            // 调用接口文件，接收并返回文件的返回值
+            Promise.using(apiController(req.params), function (ret) {
+                return res.json(ret);
+            });
+        } else {
+            return res.json(Helper.jsonError('', 404));
+        }
+    })
 });
 
 /**
