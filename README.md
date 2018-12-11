@@ -24,6 +24,11 @@ copy <code>app->database</code> Directory <code>db.xxx.js</code>
 - #### <code>tool:</code> tool library
 - #### <code>version:</code> Interface file version iteration
 
+~~~
+In the version directory, each application has its own model operation file, which is named model.
+The model operation files in the model directory use the sequelize database operation framework
+~~~
+
 ## <font color=#f00>note:</font>
 
 There are two types of database configuration files in the database directory.

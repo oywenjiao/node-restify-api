@@ -15,6 +15,8 @@
     "bluebird": "^3.5.3",
     "crypto-js": "^3.1.9-1",
     "jsonwebtoken": "^8.4.0",
+    "log4js": "^3.0.6",
+    "moment": "^2.22.2",
     "mysql2": "^1.6.4",
     "promise-mysql": "^3.3.1",
     "restify": "^7.2.3",

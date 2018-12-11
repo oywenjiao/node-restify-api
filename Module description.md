@@ -42,3 +42,10 @@ https://www.npmjs.com/package/promise-mysql
 
 ### 2.说明文档
 https://demopark.github.io/sequelize-docs-Zh-CN/getting-started.html
+
+### 3.搭配组件
+#### 3-1. 组件 <code>moment</code> : 格式化时间。
+- 安装命令：npm install --save moment
+
+#### 3-2.组件 <code>log4js</code> : 日志管理。
+- 安装命令: npm install log4js --save
