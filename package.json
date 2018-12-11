@@ -15,7 +15,9 @@
     "bluebird": "^3.5.3",
     "crypto-js": "^3.1.9-1",
     "jsonwebtoken": "^8.4.0",
+    "mysql2": "^1.6.4",
     "promise-mysql": "^3.3.1",
-    "restify": "^7.2.3"
+    "restify": "^7.2.3",
+    "sequelize": "^4.41.2"
   }
 }

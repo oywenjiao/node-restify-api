@@ -10,7 +10,7 @@ module.exports = function (data) {
         // 查询用户是否存在
         return Promise.using(Model
             .field(['id', 'phone'])
-            .where('id', uid)
+            .wheres('id', uid)
             .select('auth', connection), function (result) {
             return result;
         }).then(function (user) {

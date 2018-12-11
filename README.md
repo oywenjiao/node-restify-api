@@ -24,6 +24,12 @@ copy <code>app->database</code> Directory <code>db.xxx.js</code>
 - #### <code>tool:</code> tool library
 - #### <code>version:</code> Interface file version iteration
 
+## <font color=#f00>note:</font>
+
+There are two types of database configuration files in the database directory.
+- Native SQL configuration for files named db.*
+- Sequelize framework configuration for files named config.*
+
 ### 1-1.<code>version</code> Iterative sample specification:
 - Create the first version <code>v1</code> directory.
 - Operating interfaces of different applications are stored in corresponding directories with the same name.
@@ -33,4 +39,6 @@ copy <code>app->database</code> Directory <code>db.xxx.js</code>
 - <code>login.js</code> Token login registration file.
 - <code>verify.js</code> Token information validation file.
 
-
+## Interface example
+### 1.Examples of native SQL operations:
+Target path:<code>app->version->v1->daily->user</code>

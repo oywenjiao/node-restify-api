@@ -32,3 +32,13 @@ https://www.npmjs.com/package/jsonwebtoken
 
 ### 2.说明文档
 https://www.npmjs.com/package/promise-mysql
+
+## 五、Sequelize 数据库ORM操作管理框架
+
+### 1.安装
+运行命令：
+- <code>npm install --save sequelize</code>
+- <code>npm install --save mysql2</code>
+
+### 2.说明文档
+https://demopark.github.io/sequelize-docs-Zh-CN/getting-started.html

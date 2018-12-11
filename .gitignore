@@ -3,4 +3,6 @@ node_modules
 /app/config/env.json
 package-lock.json
 /app/database/db.*
+/app/database/config.*
 !/app/database/db.example.js
+!/app/database/config.example.js

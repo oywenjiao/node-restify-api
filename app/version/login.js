@@ -24,7 +24,7 @@ module.exports = function (data) {
     return Promise.using(dbConnection(), function (connection) {
         return Promise.using(Model
             .field(['id', 'phone', 'pwd'])
-            .where('phone', phone)
+            .wheres('phone', '=', phone)
             .select('auth', connection), function (result) {
                 return result[0];
         }).then(function (user) {
@@ -56,7 +56,7 @@ module.exports = function (data) {
                 // 查询用户信息
                 return Promise.using(Model.
                 field(['id', 'phone']).
-                where('id', uid).
+                wheres('id', uid).
                 select('auth', connection), function (result) {
                     return result[0];
                 })

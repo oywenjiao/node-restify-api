@@ -17,13 +17,15 @@ Model.prototype = {
     field,
     where_options,
     value,
-    where,
+    wheres,
+    orWhere,
     limit,
     insert,
     getQuery,
     select,
     restOption,
     find,
+    page,
 };
 
 /**
@@ -67,9 +69,10 @@ function field(fields){
  * @param column    查询字段
  * @param operator  表达式
  * @param value 字段值
+ * @param boolean 判断方式,与和或
  * @returns {where}
  */
-function where(column, operator, value=null){
+function wheres(column, operator, value=null, boolean='and'){
     if (value === null){
         value = operator;
         operator = '=';
@@ -77,8 +80,37 @@ function where(column, operator, value=null){
     if (this.where_options === null)
         this.where_options = column + ' ' + operator + ' ? ';
     else
-        this.where_options += ' and ' + column + ' ' + operator + ' ? ';
-    this.value.push(value);
+        this.where_options += ' ' + boolean + ' ' + column + ' ' + operator + ' ? ';
+    switch (operator) {
+        case '=':
+            this.value.push(value);
+            break;
+        case 'like':
+            this.value.push('%'+value+'%');
+            break;
+        default:
+            this.value.push(value);
+            break;
+    }
+    return this;
+}
+
+function orWhere(column, operator, value=null) {
+    if (value === null){
+        value = operator;
+        operator = '=';
+    }
+    return this.wheres(column, operator, value, 'or');
+}
+
+/**
+ * 通过页码数进行分页查询数据
+ * @param page
+ * @param size
+ */
+function page(page=1, size=10) {
+    let firstRow = parseInt(page - 1) * size;
+    this.limit(firstRow, size);
     return this;
 }
 
@@ -117,7 +149,10 @@ function getQuery(tab, type) {
             query += 'update ' + tab + ' ';
             break;
         case 'select':
-            query += 'select ?? from ' + tab + ' where ';
+            if (this.field_options !== null)
+                query += 'select ?? from ' + tab + ' where ';
+            else
+                query += 'select * from ' + tab + ' where ';
             break;
         default :
             query += 'select ?? from ' + tab + ' where ';
@@ -133,16 +168,15 @@ function getQuery(tab, type) {
  * @returns {*} 返回值为Promise
  */
 function select(tab, connection){
-    if (this.field_options === null)
-        return {'code': 401, 'msg': '请指定查询字段'};
-    else if (!(this.field_options instanceof Array))
+    if (this.field_options !== null && !(this.field_options instanceof Array))
         return {'code': 401, 'msg': '字段表达式必须为数组'};
     if (this.where_options === null)
         return {'code': 401, 'msg': '请指定查询条件'};
     // 获取查询语句
     let sql = this.getQuery(tab, 'select') + this.where_options;
     // 预处理赋值
-    this.value.unshift(this.field_options);
+    if(this.field_options !== null)
+        this.value.unshift(this.field_options);
     // 判断limit语句
     if (this.firstRow > 0) {
         sql += ' limit ? , ?';
