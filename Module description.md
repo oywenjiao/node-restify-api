@@ -41,7 +41,7 @@ https://www.npmjs.com/package/promise-mysql
 - <code>npm install --save mysql2</code>
 
 ### 2.说明文档
-https://demopark.github.io/sequelize-docs-Zh-CN/getting-started.html
+https://demopark.github.io/sequelize-docs-Zh-CN/
 
 ### 3.搭配组件
 #### 3-1. 组件 <code>moment</code> : 格式化时间。

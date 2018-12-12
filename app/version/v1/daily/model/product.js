@@ -2,6 +2,7 @@ const Sequelize = require('sequelize');
 const sequelize = require('../../../../database/config.api');
 // 引入时间处理组件
 const moment = require('moment');
+const Op = Sequelize.Op;
 
 const Product = sequelize.define(
     'product',
@@ -28,6 +29,12 @@ const Product = sequelize.define(
             type: Sequelize.INTEGER(1),
             defaultValue: 1,
             comment: "上架状态:1上架,2下架,0删除",
+            allowNull: false
+        },
+        sales: {
+            type: Sequelize.INTEGER,
+            defaultValue: 0,
+            comment: "销量",
             allowNull: false
         },
         created: {
@@ -64,4 +71,5 @@ Product.sync({force: true}).then(() => {
 });
 */
 
-module.exports = Product;
+exports.Product = Product;
+exports.Op = Op;

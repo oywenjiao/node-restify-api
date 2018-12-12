@@ -1,4 +1,5 @@
-const Product = require('../model/product');
+const model = require('../model/product');
+const Product = model.Product;
 const Helper = require(process.cwd()+'/app/tool/helper');
 
 module.exports = function (params) {
