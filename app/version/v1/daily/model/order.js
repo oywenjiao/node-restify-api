@@ -65,7 +65,14 @@ const Order = sequelize.define(
 const UserModel = require('./user');
 const User = UserModel.User;
 // 定义user和order模型之间的关联关系
+/**
+ * 向 Order 中添加user_id关联字段
+ */
 User.hasMany(Order);
+/**
+ * Order 为源模型，再源模型中添加关联外键
+ * User 为目标模型
+ */
 Order.belongsTo(User);
 
 // 获取orderInfo模型
