@@ -71,10 +71,10 @@ npm install pm2 -g
 ## 2.常用命令
 ~~~ bash
 #启动命令
-pm2 start app.js				#启动app.js应用程序
-pm2 start app.js -i 4			#cluster mode 模式启动4个app.js的应用实例,4个应用程序会自动进行负载均衡
-pm2 start app.js --name="api"	#启动应用程序并命名为 "api"
-pm2 start app.js --watch		#当文件变化时自动重启应用
+pm2 start app.js				        #启动app.js应用程序
+pm2 start app.js -i 4			        #cluster mode 模式启动4个app.js的应用实例,4个应用程序会自动进行负载均衡
+pm2 start app.js --name="api"	        #启动应用程序并命名为 "api"
+pm2 start app.js --watch		        #当文件变化时自动重启应用
 pm2 start app.js --name="api" --watch	#启动程序并命名为 "api",且监听文件改动时自动重启应用
 
 #常规操作命令
