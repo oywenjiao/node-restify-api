@@ -8,6 +8,7 @@ const config = require(process.cwd()+'/app/config/env.json');
 const jwt = require(process.cwd()+'/app/tool/token');
 const Helper = require(process.cwd()+'/app/tool/helper');
 const Files = require('fs');
+const Request  = require('request');
 
 /**
  * 创建服务
@@ -26,6 +27,37 @@ server.use(restify.plugins.queryParser());
 // 在服务器上自动将请求数据转换为JavaScript对象
 server.use(restify.plugins.bodyParser());
 
+
+server.get('/push', function (req, res) {
+    return new Promise(function (resolve, reject) {
+        /*Request.post({
+            url: 'http://node.test/fenbi/api',
+            form: {
+                method: 'position'
+            }
+        }, function (err, response, body) {
+            console.log('err', err);
+            console.log('response', response);
+            console.log('body', body);
+            resolve(Helper.jsonSuccess(response));
+        })*/
+        Request({
+            url: 'http://node.test/fenbi/api',
+            method: "POST",
+            json: true,
+            headers: {
+                "content-type": "application/json",
+            },
+            body: {
+                method: 'position'
+            }
+        }, function(error, response, body) {
+            console.log('err', error);
+            console.log('response', response);
+            console.log('body', body);
+        });
+    })
+});
 
 /**
  * 拦截get方式请求
@@ -53,6 +85,30 @@ server.post('/route/login', function (req, res) {
         };
         return res.json({'code':0, 'response': response});
     })
+});
+
+server.post('/fenbi/api', function (req, res, next) {
+    console.log('接收参数有哪些',req.body.method);
+    // 检测必传参数
+    if (!req.body.method) {
+        return res.json(Helper.jsonError('缺少请求方法公共参数!!', 401));
+    }
+    return next();
+},function (req, res) {
+    // 根据v参数和method参数查找到对应的接口文件
+    let apiFile = './app/version/fenbi/'+req.body.method.replace('.','/').replace('.','/')+'.js';
+    // 检测指定的接口文件是否存在
+    Files.exists(apiFile, function (exists) {
+        if (exists === true){
+            let apiController = require(apiFile);
+            // 调用接口文件，接收并返回文件的返回值
+            Promise.using(apiController(req.body), function (ret) {
+                return res.json(ret);
+            });
+        } else {
+            return res.json(Helper.jsonError('操作对象不存在', 404));
+        }
+    });
 });
 
 /**
